@@ -2,10 +2,18 @@
 #include <iostream>
 #include "Sample.h"
 #include "GenRandom.h"
+#include "Utils.h"
 
 namespace PerceptronModel {
+
+	//returns the error of the classification during training in order to tune the weights accordingly
+	double getError (double target, double y) {
+		return target - y;
+	}
+	
 	class Perceptron {
 		private:
+			int epochs;
 			std::vector<double> weights;
 			double bias;
 			double learning_step; //learning step
@@ -13,9 +21,9 @@ namespace PerceptronModel {
 
 		public:
 			//constructor gets the features dimension as a parameter	
-			Perceptron(int d): dimensions{d} {
+			Perceptron(int d): dimensions{d}, epochs{10} {
 
-				GenRandomReal gen_step{0.01, 0.1}, gen_bias{0.01, 1.00 }, gen_weight{-1, 1};
+				GenRandomReal gen_step{0.01, 0.1}, gen_bias{-0.2, 0.2 }, gen_weight{-1, 1};
 
 				//generate random starting learning step
 				this->learning_step = gen_step();
@@ -28,6 +36,38 @@ namespace PerceptronModel {
 					weights.push_back(gen_weight());
 				}
 			};
+
+			int stepFunction(const Sample &sample, const Sample &weights) {
+				return (Utils::dotProduct(weights, sample) + this->bias) >= 0 ? 1 : 0;
+			}
+	
+			void recalculateWeights (double error, std::vector<double> features ) {
+				for (int i=0; i<weights.size(); i++) {
+					weights[i] = weights[i] + learning_step*error*features[i];
+				}
+			}
+				
+			/*
+				The training dataset consists of pairs, in which the first element is the sample features (vector) 
+				and the second element is the correct target (label)
+			*/
+			void train (std::vector<std::pair<std::vector<double>, int>> training_set ) {
+				for (int i=0; i<epochs; i++) {
+					for (auto &sample: training_set) {
+						std::vector<double> features = sample.first; 
+						int target = sample.second;
+						int y = stepFunction(features, this->weights);
+						double error = getError(target, y);	
+						if (error != 0) {
+							recalculateWeights(error, features);
+						}
+					}
+				}		
+			}
+				
+			int predict (std::vector<double> validation_sample) {
+				return stepFunction(validation_sample, weights);
+			}
 
 			std::vector<double> getWeights () const {
 				return weights;
