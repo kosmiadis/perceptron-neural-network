@@ -17,10 +17,15 @@ The synaptic weights ( W=(w1, w2,..., wn) ) could be:
 - Positive real numbers if y=1 (neuron is active)
 - Negative real numbers if y=0 (neuron is inactive) 
 
-In a case where the input vector is X=(x1, x2,..., xn), we check if the dot product of the two vectors W⋅X is bigger than a hyperparameter θ (theta) 
+In a case where the input vector is X=(x1, x2,..., xn), we check if the dot product of the two vectors W⋅X is bigger than a threshold θ (theta) 
 
 If it is bigger than the specified θ then the neuron gets activated and it pulses signals, if not the neuron stays inactive.
 
 The mathematical representation of the above concept is the following:
 
 **Let u = W^T ⋅ X - θ, and let y = f(u)= { 0, if u <=0 and 1 if u > 0 }**
+The variable ***u*** is called **weighted sum** and the function ***f*** is called a **step function**
+
+Because θ as a threshold is just a positive or a negative real number we can write it in the following sense: w0⋅x0 where w0=-θ (bias)  and x0=1 so at the end we have the formula
+
+u = W^T ⋅ X, W and X belong to R^N+1 (+1 because we added the threshold as a factor of the dot product)
