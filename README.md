@@ -13,5 +13,6 @@ A neuron could be in one of the following states:
 
 Neural synapses are described by the synaptic weights W(i)(i=1....)
 
-The synaptic weights are positive real numbers if y=1
-The synaptic weights are negative real numbers if y=0
+The synaptic weights could be:
+- Positive real numbers if y=1 (neuron is active)
+- Negative real numbers if y=0 (neuron is inactive) 
