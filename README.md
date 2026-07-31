@@ -45,4 +45,29 @@ Let u = w1*x1 + w2*x2 + b = 0, is a line that is vertical to the synaptic weigth
 The area that follows the w's direction is the area where it applies u(x) > 0, thus y=1
 The are that follows the w's opposite direction is the are where it applies u(x) < 0, thus y=0
 
+The distance between the line and the xy-axis origin, is dependant of the bias **b**
+
+- If b=0 then the line crosses the xy-axis origin
+- If b>0 then the line's displacement follows the opposite direction of the **w** vector
+- If b<0 then the line's displacement follows the same direction of the **w** vector
+
+### Training of Perceptron Neural Network
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
