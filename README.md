@@ -13,6 +13,10 @@ A neuron could be in one of the following states:
 
 Neural synapses are described by the synaptic weights W(i)(i=1....)
 
-The synaptic weights could be:
+The synaptic weights ( W=(w1, w2,..., wn) )could be:
 - Positive real numbers if y=1 (neuron is active)
 - Negative real numbers if y=0 (neuron is inactive) 
+
+In a case where the input vector is X=(x1, x2,..., xn), we check if the dot product of the two vectors W⋅X is bigger than a hyperparameter θ (theta) 
+
+
