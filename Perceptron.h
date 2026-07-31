@@ -21,9 +21,9 @@ namespace PerceptronModel {
 
 		public:
 			//constructor gets the features dimension as a parameter	
-			Perceptron(int d): dimensions{d}, epochs{10} {
+			Perceptron(int d): dimensions{d}, epochs{2} {
 
-				GenRandomReal gen_step{0.01, 0.1}, gen_bias{-0.2, 0.2 }, gen_weight{-1, 1};
+				GenRandomReal gen_step{0.01, 0.1}, gen_bias{-1, 1 }, gen_weight{-1, 1};
 
 				//generate random starting learning step
 				this->learning_step = gen_step();
@@ -33,12 +33,15 @@ namespace PerceptronModel {
 				
 				//initialize weights
 				for (int i=0; i<d; i++) {
-					weights.push_back(gen_weight());
+					//weights.push_back(gen_weight());
+					weights.push_back(0);
 				}
 			};
 
-			int stepFunction(const Sample &sample, const Sample &weights) {
-				return (Utils::dotProduct(weights, sample) + this->bias) >= 0 ? 1 : 0;
+			int stepFunction(const std::vector<double> &sample, const std::vector<double> weights) {
+				double dp = Utils::dotProduct(weights, sample) + this->bias;
+				std::cout << "Dot product: " << dp << std::endl;
+				return dp > 0 ? 1 : 0;
 			}
 	
 			void recalculateWeights (double error, std::vector<double> features ) {
@@ -66,6 +69,10 @@ namespace PerceptronModel {
 			}
 				
 			int predict (std::vector<double> validation_sample) {
+				for (auto v: validation_sample) {
+					std::cout << v << ", ";
+				}
+
 				return stepFunction(validation_sample, weights);
 			}
 
@@ -76,7 +83,6 @@ namespace PerceptronModel {
 			double getLearningStep () const {
 				return learning_step;
 			}
-
 	};
 
 	std::ostream &operator<<(std::ostream &stream,  const Perceptron &p) {
