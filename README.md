@@ -29,3 +29,11 @@ The variable ***u*** is called **weighted sum** and the function ***f*** is call
 Because θ as a threshold is just a positive or a negative real number we can write it in the following sense: w0⋅x0 where w0=-θ (bias)  and x0=1 so at the end we have the formula
 
 u = W^T ⋅ X, W and X belong to R^N+1 (+1 because we added the threshold as a factor of the dot product)
+
+The parameters that influence the y value is the **synaptic weights** and the **bias w0**
+
+The equation u = W⋅X + b = 0 corresponds to a hyperplane at the n-dimension space R^n
+
+The vectors X such that u(X) > 0 and those whose u(X) < 0 are being separated by the hyperplane. The ones that u(X) = 0 belong to the hyperplane. 
+
+In conclusion the hyperplane u = 0, separates the space into two groups, the first is the one tagged as y=1 and the second tagged as y=0. 
