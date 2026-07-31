@@ -37,3 +37,12 @@ The equation u = W⋅X + b = 0 corresponds to a hyperplane at the n-dimension sp
 The vectors X such that u(X) > 0 and those whose u(X) < 0 are being separated by the hyperplane. The ones that u(X) = 0 belong to the hyperplane. 
 
 In conclusion the hyperplane u = 0, separates the space into two groups, the first is the one tagged as y=1 and the second tagged as y=0. 
+
+We can get a better understanding of this if we examine a hyperplae to the 2-dimensional space, R^2.
+
+Let u = w1*x1 + w2*x2 + b = 0, is a line that is vertical to the synaptic weigth vector w=(w1, w2)
+
+The area that follows the w's direction is the area where it applies u(x) > 0, thus y=1
+The are that follows the w's opposite direction is the are where it applies u(x) < 0, thus y=0
+
+
