@@ -53,6 +53,8 @@ The distance between the line and the xy-axis origin, is dependant of the bias *
 
 ### Training of Perceptron Neural Network
 
+The dataset of this project can be found here [View Dataset](https://www.kaggle.com/datasets/samehraouf/gender-classification-dataset)
+
 
 
 
