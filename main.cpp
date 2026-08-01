@@ -52,18 +52,16 @@ int main (int argc, char* argv[]){
 	    { {1.56, 50.1}, 1 },
 	    { {1.73, 65.4}, 1 }
 	};
-	
+
 	//before training
-	std::cout << model << std::endl;
+	// std::cout << model << std::endl;
 	
 	model.train(training_set);
 	
 	//after training
-	std::cout << model << std::endl;
+	// std::cout << model << std::endl;
 
-	// std::cout << model.predict( { argv[1], argv[2] } ) << std::endl;
-	//the bug comes from the the to be predicted data consists of big numbers and 
-	//the dot product is always bigger than 0
-	std::cout << model.predict( { 1.90, 100.2 } ) << std::endl;
+	std::cout << (model.predict( {1.68, 77} ) == 1 ? "Female" : "Male") << std::endl;
+
 	return 0;
 }
