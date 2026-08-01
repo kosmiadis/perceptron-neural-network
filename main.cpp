@@ -57,8 +57,8 @@ int main (int argc, char* argv[]){
 	model.train(training_set);
 	// model.train_from_csv("data_.csv");
 
-	std::cout << (model.predict( {1.68, 77} ) == 1 ? "Female" : "Male") << std::endl;
-	std::cout << model << std::endl;
+	std::cout << (model.predict( { 1.68, 77 } ) == 1 ? "Female" : "Male") << std::endl;
+	// std::cout << model << std::endl;
 
 	return 0;
 }
