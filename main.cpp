@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "Perceptron.h"
 
@@ -52,16 +53,12 @@ int main (int argc, char* argv[]){
 	    { {1.56, 50.1}, 1 },
 	    { {1.73, 65.4}, 1 }
 	};
-
-	//before training
-	// std::cout << model << std::endl;
 	
 	model.train(training_set);
-	
-	//after training
-	// std::cout << model << std::endl;
+	// model.train_from_csv("data_.csv");
 
 	std::cout << (model.predict( {1.68, 77} ) == 1 ? "Female" : "Male") << std::endl;
+	std::cout << model << std::endl;
 
 	return 0;
 }

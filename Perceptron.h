@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
-#include "Sample.h"
 #include "GenRandom.h"
 #include "Utils.h"
+#include <string>
+#include <fstream>
 
 namespace PerceptronModel {
 
@@ -25,7 +26,8 @@ namespace PerceptronModel {
 		public:
 			//constructor gets the features dimension as a parameter	
 			Perceptron(int dim): dimensions{dim}, epochs{0}, epochs_threshold{5000}, errors_count{0} {
-				GenRandomReal gen_step{0.06, 0.1}, gen_bias{-0.5, 0.5 }, gen_weight{-0.5, 0.5};
+
+				GenRandomReal gen_step{ 0.01, 0.011 }, gen_bias{ -0.5, 0.5 }, gen_weight{ -0.5, 0.5 };
 
 				//generate random starting learning step
 				this->learning_step = gen_step();
@@ -75,6 +77,27 @@ namespace PerceptronModel {
 				}
 				while (this->errors_count > 0 && epochs < epochs_threshold);
 			}
+
+			void train_from_csv (const std::string &filename) {
+				std::ifstream data_file{filename};
+				
+				//gender,height,weight,age
+				std::string gender;
+				double height, weight;
+				int age;
+
+				std::vector<std::pair<std::vector<double>, int>> training_dataset;
+				if (data_file.is_open()) {
+					while (data_file >> gender >> height >> weight >> age) {
+						std::vector<double> features {height, weight, (double) age};
+						training_dataset.push_back(std::make_pair(features, ((gender.compare("male") == 0) ? 0 : 1)));
+					};
+				}
+
+				data_file.close();
+
+				this->train(training_dataset);
+			}
 				
 			int predict (std::vector<double> validation_sample) {
 				return stepFunction(validation_sample, weights);
@@ -94,6 +117,10 @@ namespace PerceptronModel {
 
 			int getEpochsThreshold () const {
 				return this->epochs_threshold;
+			}
+
+			int getErrorsCount () const {
+				return this->errors_count;
 			}
 	};
 
