@@ -60,5 +60,7 @@ int main (int argc, char* argv[]){
 	std::cout << (model.predict( { 1.67, 65})== 1 ? "Female" : "Male") << std::endl;
 	// std::cout << model << std::endl;
 
+
+	
 	return 0;
 }
