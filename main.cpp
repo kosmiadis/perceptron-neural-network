@@ -1,66 +1,40 @@
-
 #include <iostream>
 #include "Perceptron.h"
+#include <vector>
+#include "Utils.h"
 
-int main (int argc, char* argv[]){
-	
-	PerceptronModel::Perceptron model(2);
+using namespace std;
 
-	// 0 : male, 1 : female
-	// height in m, weight in kg
-	std::vector<std::pair<std::vector<double>, int>> training_set {
-		//male
-	    { {1.92, 91.2}, 0 },
-	    { {1.85, 82.5}, 0 },
-	    { {1.78, 76.3}, 0 },
-	    { {1.81, 84.7}, 0 },
-	    { {1.74, 72.1}, 0 },
-	    { {1.88, 89.6}, 0 },
-	    { {1.76, 74.5}, 0 },
-	    { {1.83, 81.9}, 0 },
-	    { {1.70, 68.3}, 0 },
-	    { {1.95, 94.8}, 0 },
-	    { {1.79, 79.4}, 0 },
-	    { {1.87, 86.2}, 0 },
-	    { {1.73, 71.0}, 0 },
-	    { {1.82, 80.1}, 0 },
-	    { {1.77, 75.8}, 0 },
-	    { {1.90, 88.5}, 0 },
-	    { {1.72, 69.2}, 0 },
-	    { {1.84, 83.4}, 0 },
-	    { {1.75, 73.7}, 0 },
-	    { {1.86, 85.1}, 0 },
+//passing lvalue reference as features
+void makePrediction (const PerceptronModel::Perceptron &model, const vector<double> &features) {
+	int prediction = model.predict(features);
+	cout << "Classified as " << (prediction == 1 ? "Male" : "Female") << endl;
+}
 
-	    //female
-	    { {1.61, 54.2}, 1 },
-	    { {1.68, 60.7}, 1 },
-	    { {1.55, 49.8}, 1 },
-	    { {1.72, 64.9}, 1 },
-	    { {1.64, 56.1}, 1 },
-	    { {1.58, 52.4}, 1 },
-	    { {1.70, 62.8}, 1 },
-	    { {1.66, 58.5}, 1 },
-	    { {1.60, 53.7}, 1 },
-	    { {1.74, 66.2}, 1 },
-	    { {1.57, 50.9}, 1 },
-	    { {1.69, 61.4}, 1 },
-	    { {1.63, 55.3}, 1 },
-	    { {1.71, 63.5}, 1 },
-	    { {1.59, 51.6}, 1 },
-	    { {1.65, 57.2}, 1 },
-	    { {1.62, 54.7}, 1 },
-	    { {1.67, 59.3}, 1 },
-	    { {1.56, 50.1}, 1 },
-	    { {1.73, 65.4}, 1 }
+int main (int argc, char* argv[]) {
+	PerceptronModel::Perceptron model(24);
+
+	model.train_from_csv("data.csv");
+	cout << model << endl;
+
+	std::vector<double> male_1 {
+    	42.9, 30, 31.5, 17.7, 28, 13.1, 10.4, 18.8,
+    	14.1, 106.2, 89.5, 71.5, 74.5, 93.5, 51.5,
+    	32.5, 26, 34.5, 36.5, 23.5, 16.5,
+    	21, 65.6, 174
 	};
-	
-	model.train(training_set);
-	// model.train_from_csv("data_.csv");
 
-	std::cout << (model.predict( { 1.67, 65})== 1 ? "Female" : "Male") << std::endl;
-	// std::cout << model << std::endl;
+	///find the dot product of a male with the trained model
+	makePrediction(model, male_1);
 
+	std::vector<double> female_1 {
+    	38.7, 24.8, 29.6, 16.9, 26.5, 12.2, 9.8, 17.5,
+    	13.2, 98.4, 82.1, 68.3, 72.6, 89.7, 49.2,
+    	30.1, 24.8, 32.7, 34.8, 22.1, 15.3,
+    	28, 58.4, 162
+	};
 
-	
+	makePrediction(model, female_1);
+
 	return 0;
 }
