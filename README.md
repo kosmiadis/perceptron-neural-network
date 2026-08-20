@@ -38,7 +38,7 @@ The vectors X such that u(X) > 0 and those whose u(X) < 0 are being separated by
 
 In conclusion the hyperplane u = 0, separates the space into two groups, the first is the one tagged as y=1 and the second tagged as y=0. 
 
-We can get a better understanding of this if we examine a hyperplae to the 2-dimensional space, R^2.
+We can get a better understanding of this if we examine a hyperplane to the 2-dimensional space, R^2.
 
 Let u = w1*x1 + w2*x2 + b = 0, is a line that is vertical to the synaptic weigth vector w=(w1, w2)
 
@@ -53,23 +53,45 @@ The distance between the line and the xy-axis origin, is dependant of the bias *
 
 ### Training of Perceptron Neural Network
 
-The dataset of this project can be found here [View Dataset](https://www.kaggle.com/datasets/samehraouf/gender-classification-dataset)
+The dataset of this project can be found here [View Dataset](https://www.kaggle.com/datasets/mexwell/body-measurements)
 
+## Training
+The model is being trained with the data found in the ***data.csv*** file, by calling the function ***train_from_csv("data.csv")***
 
+The function performs the following:
 
+1. Reads the csv format data from the data.csv file
+2. Creates a ***training_dataset*** vector that contains pairs with the first element being a vector of features and the second element the class target formatting the csv data to suitable formatted data
+3. Calls the model's ***train*** method which feeds the data to the model in order to calculate the appropriate weights and bias
 
+## Training Algorithm
 
+Before we start describing the algorithm the terms **Epoch** must be defined.
 
+With a simple search in Google we can find the following:
+[***Epoch***](https://www.google.com/search?q=epoch+machine+learning&sca_esv=cf5c3a640caff83a&rlz=1C5CHFA_enGR1189GR1189&sxsrf=APpeQntBD0xUNQPohNbXryvA_WbpXs9WCw%3A1787134818245&ei=YoOFarLCDseRxc8PndftkAE&biw=1470&bih=801&ved=0ahUKEwiy-4aAvKyWAxXHSPEDHZ1rGxIQ4dUDCBA&uact=5&oq=epoch+machine+learning&gs_lp=Egxnd3Mtd2l6LXNlcnAiFmVwb2NoIG1hY2hpbmUgbGVhcm5pbmcyBRAAGIAEMggQABgWGB4YCjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB5I3hJQzQNYrBJwAXgBkAEAmAGIAaABrgyqAQM3Lji4AQPIAQD4AQGYAhCgAsUMwgIKEAAYRxjWBBiwA8ICDRAAGIAEGIoFGEMYsAPCAg4QABjkAhjWBBiwA9gBAcICFxAuGNwGGLgGGNoGGNgCGMgDGLAD2AEBwgIEECMYJ8ICChAAGIAEGIoFGEPCAhEQLhivARjHARiABBiYBRiZBZgDAIgGAZAGD7oGBggBEAEYCZIHBDUuMTGgB8xcsgcENC4xMbgHwwzCBwQxMi40yAcQgAgB&sclient=gws-wiz-serp): In machine learning, an epoch represents one complete pass of the entire training dataset through a machine learning model
 
+The training starts by initializing the weights and the bias with random values that belong to the set [ -0.5 , 0.5 ], in general we initialize the weights with small positive real values. 
 
+We set the learning step ***a*** as a small positive real value, in this case the value is set to **0.1**
 
+The model's training will stop when either one of these sentences is true:
+1. The errors the model makes with the newly updated weights are 0 for the specific epoch, where the epoch < 2000
+2. The epochs_threshold=2000 criteria is met. 
 
+**Note**
+The epochs_threshold is being set to 2000 after trial and errors as a good value for the model to learn quite good from the data provided. 
 
+1. In the first case the model does not make any mistake and thus it's accuracy is 100%, furthermore meaning that the data is linearly separable. 
 
+2. In the second case the model stops the training procedure as any further training will not improve the model's performance, meaning that some data that belong to different classes are relatively close or on top of the border of the hyperplane, thus some vectors are misclassified. You can find out the errors made each time of the model's training by just printing the model itself. The model has an overloaded **>>** operator so it would print specific analytics about the model.
 
+The training is relatively simple. Each vector passes through the **weighted sum**, and then the weighted sum acts as an input value to the **step function**.
+If the output of the step function is the same as the class target that was provided by the second element of the pair, in which the vector was the first, then there is no error, if the classification is different then there is an error and the weights and bias are recalculated. 
 
+This process continues until one of the two previously mentioned criteria is met.
 
-
+The ***predict*** function works by passing the to be classified input vector through the adjusted weighted sum and the ouput through the step function. The classification is the return value, either 0 or 1.
 
 
 
