@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 
 namespace Utils {
@@ -7,5 +8,13 @@ namespace Utils {
 			sum += s1[i] * s2[i];
 		}
 		return sum;
+	}
+
+	template <typename T>
+	void printVector (const std::vector<T> &vec) {
+		for (size_t i=0; i<vec.size(); i++) {
+			std::cout << vec[i] << " ";
+		}
+		std::cout << std::endl;
 	}
 }
